@@ -35,7 +35,7 @@ Multistart - light-weight extension to run multiple process in vscode embedded t
 
 Users appreciate release notes as you update your extension.
 
-### 1.0.0
+### 0.0.1
 
 Initial release of multistart vscode extension. Implemented features:
 

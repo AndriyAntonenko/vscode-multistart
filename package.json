@@ -3,6 +3,10 @@
   "displayName": "multistart",
   "description": "Configure and start many processes in your vscode",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AndriyAntonenko/vscode-multistart"
+  },
   "engines": {
     "vscode": "^1.71.0"
   },

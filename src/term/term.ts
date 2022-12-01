@@ -37,6 +37,14 @@ export class Term {
     return this;
   }
 
+  async kill(): Promise<void> {
+    const pid = await this.getProcessId();
+    if (pid) {
+      process.kill(pid, 0);
+    }
+    this._term.dispose();
+  }
+
   cmdMany(commands: string[][]): Term {
     commands.forEach((command) => this.cmd(command));
     return this;

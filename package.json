@@ -19,7 +19,40 @@
         "command": "multistart.run",
         "title": "Multistart"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Multistart",
+      "properties": {
+        "multistart.tasks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "title": "Tasks",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name of the terminal, where your commands will be executed."
+              },
+              "location": {
+                "type": "string",
+                "description": "Path to the directory, where commands have to be executed. (Optional parameter)"
+              },
+              "commands": {
+                "type": "array",
+                "description": "Array of commands that will be executed.",
+                "items": {
+                  "type": "array",
+                  "description": "Executable command",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

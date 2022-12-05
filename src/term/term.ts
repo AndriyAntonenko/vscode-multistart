@@ -38,9 +38,12 @@ export class Term {
   }
 
   async kill(): Promise<void> {
-    const pid = await this.getProcessId();
-    if (pid) {
-      process.kill(pid, 0);
+    if (this._term.exitStatus) {
+      console.debug(
+        "Terminal in exist status. Code:",
+        this._term.exitStatus.code
+      );
+      return;
     }
     this._term.dispose();
   }

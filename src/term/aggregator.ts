@@ -23,5 +23,6 @@ export class TermsAggregator {
 
   async killAll(): Promise<void> {
     await Promise.all(this.terms.map((t) => t.kill()));
+    this.terms = [];
   }
 }

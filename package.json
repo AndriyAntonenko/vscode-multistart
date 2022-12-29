@@ -15,7 +15,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:multistart.run"
+    "onCommand:multistart.run",
+    "onView:multistart.templatesExplorer"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -23,33 +24,96 @@
       {
         "command": "multistart.run",
         "title": "Multistart"
+      },
+      {
+        "command": "multistart.templatesExplorer.refresh",
+        "title": "Refresh",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "multistart.templatesExplorer.runTemplate",
+        "title": "Run",
+        "icon": {
+          "light": "resources/light/start.svg",
+          "dark": "resources/dark/start.svg"
+        }
       }
     ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "multistartTemplatesExplorerView",
+          "title": "Multistart",
+          "icon": "resources/tree-view-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "multistartTemplatesExplorerView": [
+        {
+          "id": "multistart.templatesExplorer",
+          "name": "Templates explorer"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "multistart.templatesExplorer.refresh",
+          "when": "view == multistart.templatesExplorer",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "multistart.templatesExplorer.runTemplate",
+          "when": "view == multistart.templatesExplorer && viewItem == template",
+          "group": "inline"
+        }
+      ]
+    },
     "configuration": {
       "title": "Multistart",
       "properties": {
-        "multistart.tasks": {
+        "multistart.templates": {
           "type": "array",
+          "title": "Templates",
+          "description": "Add your template for multistart application",
           "items": {
             "type": "object",
-            "title": "Tasks",
             "properties": {
               "name": {
                 "type": "string",
-                "description": "The name of the terminal, where your commands will be executed."
+                "description": "Short human-readable name for template"
               },
-              "location": {
-                "type": "string",
-                "description": "Path to the directory, where commands have to be executed. (Optional parameter)"
-              },
-              "commands": {
+              "processes": {
                 "type": "array",
-                "description": "Array of commands that will be executed.",
                 "items": {
-                  "type": "array",
-                  "description": "Executable command",
-                  "items": {
-                    "type": "string"
+                  "type": "object",
+                  "title": "Instructions",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the terminal, where your commands will be executed."
+                    },
+                    "dirPath": {
+                      "type": "string",
+                      "description": "Path to the directory, where commands have to be executed. (Optional parameter)"
+                    },
+                    "instructions": {
+                      "type": "array",
+                      "description": "Array of cli instructions that will be executed.",
+                      "items": {
+                        "type": "array",
+                        "description": "Executable command",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
                   }
                 }
               }

@@ -59,6 +59,7 @@ Multistart - light-weight extension to run multiple process in vscode embedded t
   ```
 
   How it looks like:
+
   ![Sidebar view](./resources/examples/sidebar.png "Sidebar example")
 
 ## Release Notes
@@ -77,3 +78,7 @@ Initial release of multistart vscode extension. Implemented features:
 
 - added templates configuration
 - added templates view with control buttons
+
+### 1.0.1
+
+- description fixes

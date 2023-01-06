@@ -2,7 +2,7 @@
   "name": "multistart",
   "displayName": "multistart",
   "description": "Configure and start many processes in your vscode",
-  "version": "0.0.2",
+  "version": "1.0.1",
   "publisher": "insomnia",
   "repository": {
     "type": "git",
@@ -15,16 +15,11 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:multistart.run",
     "onView:multistart.templatesExplorer"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
-      {
-        "command": "multistart.run",
-        "title": "Multistart"
-      },
       {
         "command": "multistart.templatesExplorer.refresh",
         "title": "Refresh",

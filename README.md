@@ -5,31 +5,61 @@ Multistart - light-weight extension to run multiple process in vscode embedded t
 ## Features
 
 1. Add extensions config in your workspace settings.
-2. Press `Ctrl` + `Shift` + `P` and find command with name "Multistart"
-3. Now you can see your tasks in newly created terminals
+2. Find multistart icon in your sidebar
+3. Choose desire template and run it :)
 
 ## Extension Settings
 
-- `multistart.tasks`: Array of objects, that describes each terminals an instruction to run in it. Each object contains set of properties:
-  - `name` - human-readable name of terminal
-  - `location` - (optional) path to directory from which the command will be executed
-  - `commands` - list of commands in execution order
+- `multistart.templates`: Array of objects, that contains declarative instruction for template(name, process). Each object contains set of properties:
+
+  - `name` - human-readable name of template (For example `local-auth-testing`, `web-client`, etc.)
+  - `processes` - array of object, contains instructions which will be run in separate vscode terminal
+    - `name` - the name of the process, will be shown in the list of terminals
+    - `dirPath` - location where `instructions` should be executed, optional parameter
+    - `instructions` - list of instructions, which will be executed one by one in separate vscode terminal
+
   ```json
-  "multistart.tasks": [
+  "multistart.templates": [
     {
-      "name": "echo",
-      "commands": [
-        ["echo", "\"Hello World\""],
-        ["cat", "/etc/os-release"]
+      "name": "test1",
+      "processes": [
+        {
+          "name": "echo1",
+          "dirPath": "/",
+          "instructions": [["echo", "'Hello from echo1'"]]
+        },
+        {
+          "name": "smart-contracts tests",
+          "dirPath": "./smart-contracts",
+          "instructions": [
+            ["echo", "'Running tests'"],
+            ["npm", "run", "test"]
+          ]
+        }
       ]
     },
     {
-      "name": "tests",
-      "location": "./smart-contracts",
-      "commands": [["npx", "hardhat", "test", "--network", "hardhat"]]
+      "name": "test2",
+      "processes": [
+        {
+          "name": "echo2",
+          "instructions": [["echo", "'Hello from echo2'"]]
+        },
+        {
+          "name": "web-app",
+          "dirPath": "./web-app",
+          "instructions": [
+            ["echo", "'Running web-app'"],
+            ["npm", "run", "start"]
+          ]
+        }
+      ]
     }
   ]
   ```
+
+  How it looks like:
+  ![Sidebar view](./resources/examples/sidebar.png "Sidebar example")
 
 ## Release Notes
 
@@ -42,3 +72,8 @@ Initial release of multistart vscode extension. Implemented features:
 - tasks configuration in workspace settings
 - running tasks from command palette
 - configuring many instruction to execute in one task(in one terminal)
+
+### 1.0.0
+
+- added templates configuration
+- added templates view with control buttons

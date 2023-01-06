@@ -5,6 +5,7 @@ import {
   TemplatesTreeViewDataProvider,
   TemplatesTreeItem,
 } from "./TemplatesTreeViewDataProvider";
+import { TemplateExecutor } from "./TemplateExecutor";
 
 export function activate(context: vscode.ExtensionContext) {
   const configReader = new ConfigurationReader();
@@ -21,11 +22,18 @@ export function activate(context: vscode.ExtensionContext) {
     templateViewDataProvider.refresh()
   );
 
-  // @TODO: run template correctly
   vscode.commands.registerCommand(
     "multistart.templatesExplorer.runTemplate",
     (template: TemplatesTreeItem) => {
-      vscode.window.showInformationMessage(`Start template ${template.name}`);
+      vscode.window.showInformationMessage(
+        `Starting template ${template.name}`
+      );
+
+      TemplateExecutor.exec(template).catch((err) => {
+        vscode.window.showErrorMessage(
+          `Template execution error: ${template.name}`
+        );
+      });
     }
   );
 }

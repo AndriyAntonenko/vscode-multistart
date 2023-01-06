@@ -1,4 +1,5 @@
 import { Term } from "./term";
+import { Process } from "../models";
 
 export class TermsAggregator {
   terms: Term[];
@@ -11,12 +12,15 @@ export class TermsAggregator {
     return new TermsAggregator();
   }
 
-  spawn(
-    name: string,
-    commands: string[][],
-    location?: string
-  ): TermsAggregator {
-    const newTerm = Term.spawn(name, location).cmdMany(commands);
+  spawnMany(processes: Process[]): TermsAggregator {
+    processes.forEach((p) => {
+      this.spawn(p);
+    });
+    return this;
+  }
+
+  spawn({ name, dirPath, instructions }: Process): TermsAggregator {
+    const newTerm = Term.spawn(name, dirPath).cmdMany(instructions ?? []);
     this.terms.push(newTerm);
     return this;
   }
